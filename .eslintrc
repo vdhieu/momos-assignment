@@ -1,0 +1,27 @@
+{
+  "extends": [
+    "react-app",
+    "plugin:jsx-a11y/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "jsx-a11y", "react-hooks", "prettier"],
+  "rules": {
+    "no-useless-return": "error",
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-empty-function": [
+      "error",
+      {
+        "allow": ["arrowFunctions", "functions", "methods"]
+      }
+    ],
+    "curly": ["error", "multi-line"],
+    "no-lone-blocks": "error",
+    "newline-before-return": "error",
+    "no-unused-expressions": "error",
+    "object-shorthand": "error",
+    "prefer-destructuring": "warn",
+    "no-param-reassign": "error",
+    "@typescript-eslint/no-unused-vars": "error"
+  }
+}
