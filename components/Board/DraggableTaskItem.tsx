@@ -1,6 +1,7 @@
 import { Task } from 'context/TasksContext';
 import { memo } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import classnames from 'classnames';
 
 interface Props {
   task: Task;
@@ -10,10 +11,12 @@ interface Props {
 function DraggableTaskItem({ task, index }: Props) {
   return (
     <Draggable key={task.id} draggableId={task.id} index={index}>
-      {(provided) => (
+      {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
-          className="my-2 bg-white p-4 rounded"
+          className={classnames('my-2 bg-white p-4 rounded', {
+            'shadow-md': snapshot.isDragging,
+          })}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
