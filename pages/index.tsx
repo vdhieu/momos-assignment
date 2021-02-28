@@ -1,14 +1,13 @@
 import { useCallback } from 'react';
 import {
   DragDropContext,
-  Draggable,
-  DraggableProvided,
   Droppable,
   DroppableProvided,
   DropResult,
 } from 'react-beautiful-dnd';
 import LoadingIndicator from 'components/LoadingIndicator';
 import { useTasksContext } from 'context/TasksContext';
+import DraggableTaskColumn from 'components/Board/DraggableTaskColumn';
 
 export default function IndexPage() {
   const {
@@ -64,61 +63,13 @@ export default function IndexPage() {
               {...provided.droppableProps}
             >
               {data.map((taskGroup, index) => (
-                <Draggable
+                <DraggableTaskColumn
                   key={taskGroup.id}
-                  draggableId={taskGroup.id}
+                  id={taskGroup.id}
+                  title={taskGroup.name}
                   index={index}
-                >
-                  {(columnProvider) => (
-                    <div
-                      key={taskGroup.id}
-                      ref={columnProvider.innerRef}
-                      className="w-1/4 px-2"
-                      {...columnProvider.draggableProps}
-                    >
-                      <div className="bg-gray-200 rounded flex flex-col p-2">
-                        <h1 {...columnProvider.dragHandleProps}>
-                          {taskGroup.name}
-                        </h1>
-                        <Droppable droppableId={`${taskGroup.id}`} type="ITEM">
-                          {(taskDroppableProvided) => (
-                            <div
-                              ref={taskDroppableProvided.innerRef}
-                              {...taskDroppableProvided.droppableProps}
-                              className="relative"
-                            >
-                              {taskGroup.tasks.map((task, idx) => (
-                                <Draggable
-                                  key={task.id}
-                                  draggableId={task.id}
-                                  index={idx}
-                                >
-                                  {(
-                                    taskDraggableProvided: DraggableProvided,
-                                  ) => (
-                                    <div
-                                      ref={taskDraggableProvided.innerRef}
-                                      className="my-2 bg-white p-4 rounded"
-                                      {...taskDraggableProvided.draggableProps}
-                                      {...taskDraggableProvided.dragHandleProps}
-                                    >
-                                      <p className="text-xs text-gray-500">
-                                        ID: {task.id}
-                                      </p>
-                                      <h4>{task.name}</h4>
-                                    </div>
-                                  )}
-                                </Draggable>
-                              ))}
-                              {taskDroppableProvided.placeholder}
-                              <button>Add new task</button>
-                            </div>
-                          )}
-                        </Droppable>
-                      </div>
-                    </div>
-                  )}
-                </Draggable>
+                  tasks={taskGroup.tasks}
+                />
               ))}
               {provided.placeholder}
               <div className="w-1/4 px-2">
