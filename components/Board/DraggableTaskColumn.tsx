@@ -1,17 +1,28 @@
 import { Task } from 'context/TasksContext';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import DroppableTaskZone from './DroppableTaskZone';
 import classnames from 'classnames';
+import AddTaskInput from 'components/AddTaskInput';
 
 interface Props {
   title: string;
   id: string;
   index: number;
   tasks: Task[];
+  onAddTask?: (id: string, txt: string) => void;
 }
 
-function DraggableTaskColumn({ title, id, index, tasks }: Props) {
+function DraggableTaskColumn({ title, id, index, tasks, onAddTask }: Props) {
+  const onSubmitNewTask = useCallback(
+    (txt: string) => {
+      if (typeof onAddTask === 'function') {
+        onAddTask(id, txt);
+      }
+    },
+    [id, onAddTask],
+  );
+
   return (
     <Draggable key={id} draggableId={id} index={index}>
       {(provider, snapshot) => (
@@ -27,7 +38,7 @@ function DraggableTaskColumn({ title, id, index, tasks }: Props) {
           >
             <h1 {...provider.dragHandleProps}>{title}</h1>
             <DroppableTaskZone droppableId={id} tasks={tasks} />
-            <button>Add new task</button>
+            <AddTaskInput onSubmit={onSubmitNewTask} />
           </div>
         </div>
       )}

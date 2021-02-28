@@ -30,45 +30,47 @@ interface ContextType {
 const STORAGE_KEY = 'TASK_APP_DATA';
 const Context = React.createContext<ContextType | undefined>(undefined);
 
+const ID_LENGTH = 7;
+
 const fakeData = [
   {
-    id: nanoid(7),
+    id: nanoid(ID_LENGTH),
     name: 'Column 1',
     tasks: [
       {
-        id: nanoid(7),
+        id: nanoid(ID_LENGTH),
         name: 'Hello world',
       },
       {
-        id: nanoid(7),
+        id: nanoid(ID_LENGTH),
         name: 'Hi this is a task',
       },
     ],
   },
   {
-    id: nanoid(7),
+    id: nanoid(ID_LENGTH),
     name: 'Column 2',
     tasks: [
       {
-        id: nanoid(7),
+        id: nanoid(ID_LENGTH),
         name: 'Hello world 2',
       },
       {
-        id: nanoid(7),
+        id: nanoid(ID_LENGTH),
         name: 'Hi this is a task 2',
       },
     ],
   },
   {
-    id: nanoid(7),
+    id: nanoid(ID_LENGTH),
     name: 'Column 3',
     tasks: [
       {
-        id: nanoid(7),
+        id: nanoid(ID_LENGTH),
         name: 'Hello world 3',
       },
       {
-        id: nanoid(7),
+        id: nanoid(ID_LENGTH),
         name: 'Hi this is a task 3',
       },
     ],
@@ -106,7 +108,7 @@ export const TasksContextProvider: React.FC = ({ children }) => {
   }, [initializing, data]);
 
   const addNewTaskGroup = useCallback((name: string) => {
-    setData((pre) => [...pre, { id: nanoid(7), name, tasks: [] }]);
+    setData((pre) => [...pre, { id: nanoid(ID_LENGTH), name, tasks: [] }]);
   }, []);
 
   const changeTaskGroupOrder = useCallback(
@@ -225,7 +227,10 @@ export const TasksContextProvider: React.FC = ({ children }) => {
         taskGroup.id === groupId
           ? {
               ...taskGroup,
-              tasks: [...taskGroup.tasks, { name: taskName, id: nanoid() }],
+              tasks: [
+                ...taskGroup.tasks,
+                { name: taskName, id: nanoid(ID_LENGTH) },
+              ],
             }
           : taskGroup,
       ),

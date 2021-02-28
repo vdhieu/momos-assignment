@@ -15,6 +15,7 @@ export default function IndexPage() {
     data,
     changeTaskGroupOrder,
     changeTaskOrder,
+    addTaskToGroup,
   } = useTasksContext();
 
   const onDragEnd = useCallback((result: DropResult) => {
@@ -36,6 +37,13 @@ export default function IndexPage() {
       srcIdx: src.index,
     });
   }, []);
+
+  const onAddTask = useCallback(
+    (id: string, txt: string) => {
+      addTaskToGroup(id, txt);
+    },
+    [addTaskToGroup],
+  );
 
   if (initializing) {
     return (
@@ -69,6 +77,7 @@ export default function IndexPage() {
                   title={taskGroup.name}
                   index={index}
                   tasks={taskGroup.tasks}
+                  onAddTask={onAddTask}
                 />
               ))}
               {provided.placeholder}
