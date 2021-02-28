@@ -25,18 +25,26 @@ function DraggableTaskColumn({ title, id, index, tasks, onAddTask }: Props) {
 
   return (
     <Draggable key={id} draggableId={id} index={index}>
-      {(provider, snapshot) => (
+      {(
+        {
+          innerRef,
+          draggableProps: { style, ...draggableProps },
+          dragHandleProps,
+        },
+        snapshot,
+      ) => (
         <div
-          ref={provider.innerRef}
+          ref={innerRef}
           className="w-1/4 px-2"
-          {...provider.draggableProps}
+          {...draggableProps}
+          style={{ ...style, minWidth: 350 }}
         >
           <div
             className={classnames('bg-gray-200 rounded flex flex-col p-2', {
               'shadow-md': snapshot.isDragging,
             })}
           >
-            <h1 {...provider.dragHandleProps}>{title}</h1>
+            <h1 {...dragHandleProps}>{title}</h1>
             <DroppableTaskZone droppableId={id} tasks={tasks} />
             <AddTaskInput onSubmit={onSubmitNewTask} />
           </div>

@@ -8,6 +8,7 @@ import {
 import LoadingIndicator from 'components/LoadingIndicator';
 import { useTasksContext } from 'context/TasksContext';
 import DraggableTaskColumn from 'components/Board/DraggableTaskColumn';
+import AddTaskGroupInput from 'components/AddTaskGroupInput';
 
 export default function IndexPage() {
   const {
@@ -16,6 +17,7 @@ export default function IndexPage() {
     changeTaskGroupOrder,
     changeTaskOrder,
     addTaskToGroup,
+    addNewTaskGroup,
   } = useTasksContext();
 
   const onDragEnd = useCallback((result: DropResult) => {
@@ -82,7 +84,7 @@ export default function IndexPage() {
               ))}
               {provided.placeholder}
               <div className="w-1/4 px-2">
-                <button>Add new column</button>
+                <AddTaskGroupInput onSubmit={addNewTaskGroup} />
               </div>
             </div>
           )}

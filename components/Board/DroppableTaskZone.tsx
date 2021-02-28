@@ -12,7 +12,11 @@ function DroppableTaskZone({ droppableId, tasks }: Props) {
   return (
     <Droppable droppableId={droppableId} type="ITEM">
       {(provided) => (
-        <div ref={provided.innerRef} {...provided.droppableProps}>
+        <div
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+          style={{ minHeight: 32 }}
+        >
           {tasks.map((task, idx) => (
             <DraggableTaskItem key={task.id} task={task} index={idx} />
           ))}

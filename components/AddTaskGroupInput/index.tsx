@@ -7,7 +7,7 @@ interface Props {
   onSubmit?: (txt: string) => void;
 }
 
-function AddTaskGroupInput({ onSubmit }: Props) {
+function AddTaskInput({ onSubmit }: Props) {
   const [value, setValue] = useState('');
   const [editMode, setEditMode] = useState(false);
 
@@ -26,22 +26,29 @@ function AddTaskGroupInput({ onSubmit }: Props) {
 
   if (!editMode) {
     return (
-      <div>
-        <PrimaryButton type="button" onClick={() => setEditMode(true)}>
-          Add task
-        </PrimaryButton>
-      </div>
+      <button
+        type="button"
+        className="w-full py-2 bg-gray-100 border border-dashed rounded hover:bg-gray-200"
+        style={{ minWidth: 350 }}
+        onClick={() => setEditMode(true)}
+      >
+        New column
+      </button>
     );
   }
 
   return (
-    <form onSubmit={onSave}>
+    <form
+      onSubmit={onSave}
+      className="w-full p-2 bg-gray-100 border border-dashed rounded hover:bg-gray-200"
+      style={{ minWidth: 350 }}
+    >
       <TextInput
         autoFocus
         value={value}
         onChange={onChange}
         className="w-full"
-        placeholder="Task name"
+        placeholder="Column name"
       />
       <div className="flex items-center justify-end -mx-1 mt-2">
         <div className="px-1">
@@ -57,4 +64,4 @@ function AddTaskGroupInput({ onSubmit }: Props) {
   );
 }
 
-export default memo(AddTaskGroupInput);
+export default memo(AddTaskInput);
