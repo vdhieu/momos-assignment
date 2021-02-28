@@ -94,9 +94,7 @@ export const TasksContextProvider: React.FC = ({ children }) => {
     } catch (error) {
       console.error(error);
     } finally {
-      setTimeout(() => {
-        setInitializing(false);
-      }, 1500);
+      setInitializing(false);
     }
   }, []);
 
